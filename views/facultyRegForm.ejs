@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale = 1.0, user-scalable = no">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/LoginLevel.css">
+</head>
+<body>
+    <div class="facultyRegForm-container">
+            <form method="post" action="">
+                <select name="branch" id="branch" required>
+                    <option value="none">Select Department</option>
+                    <option value="cse">Computer Science</option>
+                    <option value="me">Mechanical Engg.</option>
+                    <option value="el">Electrical Engg</option>
+                    <option value="civil">Civil Engg.</option>
+                    <option value="ec">Electronics Engg.</option>
+                </select>
+                <input type="text" placeholder="enter your name " name="facultyname" required>
+                <input type="email" placeholder="enter email" name="facultyemail" required>
+                <input type="text" placeholder="enter mobile number" name="facultymobile" required minlength="10" maxlength="10">
+                <input type="password" placeholder="enter password" name="facultypassword" required>
+                <button>Register</button>
+            </form>
+    </div>
+</body>
+</html>
