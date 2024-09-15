@@ -9,20 +9,15 @@ const Faculty = require("./models/faculty");
 const Admin = require("./models/admin");
 const Student = require("./models/student");
 const Attendance = require("./models/attendance");
-<<<<<<< HEAD
 const ExpressError = require("./ExpressError");
-// const dbUrl = 'mongodb+srv://sharmaji:2hMJb8vkjyrltAND@cluster0.viyiq.mongodb.net/AttendanceManagemant?retryWrites=true&w=majority&appName=Cluster0';
-=======
 const dbUrl = 'mongodb+srv://sharmaji:2hMJb8vkjyrltAND@cluster0.viyiq.mongodb.net/AttendanceManagemant?retryWrites=true&w=majority&appName=Cluster0';
->>>>>>> ac23f63eedd5d786b57615fb48635a9ecfc5f85a
-
 main().then(() => {
     console.log("connection successful!");
 }).catch((err) =>{
     console.log(err);
 })
 async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/satms");
+    await mongoose.connect(dbUrl);
 }
 
 function asyncWrap(fn){
@@ -181,39 +176,14 @@ app.post("/submitAttendance/:id", asyncWrap(async(req, res) => {
 
 
 
-
-
-
-
 // Error Handling starts from here
 app.all("*", asyncWrap((req, res, next) => {
     throw new ExpressError(404, "Page Not Found !");
 }))
-
 app.use((err, req, res, next) => {
     let {status = 500, message = "Something went wrong"} = err;
     res.status(status).render("error.ejs", {status, message});
 })
-
-
-<<<<<<< HEAD
-app.listen(PORT, () => {
-    console.log(`application is listening to the port : ${PORT}`);
-})
-=======
-
-
-
-
-
-
-
-
-
-
-
-
 app.listen(port, () => {
     console.log(`application is listening to the port : ${port}`);
 })
->>>>>>> ac23f63eedd5d786b57615fb48635a9ecfc5f85a
