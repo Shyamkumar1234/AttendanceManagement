@@ -58,7 +58,7 @@ try{
             document.getElementById("homeImage").setAttribute("src", "https://www.pembrokeshire.ac.uk/wp-content/uploads/2018/07/Computer-Science.gif");
         }, 6000);
         setTimeout(() => {
-            document.getElementById("homeImage").setAttribute("src", "https://www.wcitv.com/wp-content/uploads/2019/04/iStock-987365514.jpg");
+            document.getElementById("homeImage").setAttribute("src", "https://thumbs.dreamstime.com/b/globalization-computer-technology-communication-47033019.jpg");
         }, 7500);
 
     }, 9000);
