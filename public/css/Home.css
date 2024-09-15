@@ -324,6 +324,7 @@ table{
 
 /* error handling design */
 .error-container{
+    padding: 2rem;
     width: 100vw;
     height: 100vh;
     background-color: #d9e9f7;
