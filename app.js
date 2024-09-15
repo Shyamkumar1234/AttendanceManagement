@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const {Schema} = mongoose;
-const PORT = process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 const methodOverride = require("method-override");
 const path = require("path");
 const Faculty = require("./models/faculty");
@@ -171,6 +171,6 @@ app.post("/submitAttendance/:id", async(req, res) => {
 
 
 
-app.listen(PORT, () => {
-    console.log(`application is listening to the port : ${PORT}`);
+app.listen(port, () => {
+    console.log(`application is listening to the port : ${port}`);
 })
