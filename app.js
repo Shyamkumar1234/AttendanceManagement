@@ -11,7 +11,6 @@ const Student = require("./models/student");
 const Attendance = require("./models/attendance");
 const ExpressError = require("./ExpressError");
 const dbUrl = 'mongodb+srv://sharmaji:2hMJb8vkjyrltAND@cluster0.viyiq.mongodb.net/AttendanceManagemant?retryWrites=true&w=majority&appName=Cluster0';
->>>>>>> ac23f63eedd5d786b57615fb48635a9ecfc5f85a
 
 main().then(() => {
     console.log("connection successful!");
@@ -192,24 +191,8 @@ app.use((err, req, res, next) => {
 })
 
 
-<<<<<<< HEAD
-app.listen(PORT, () => {
-    console.log(`application is listening to the port : ${PORT}`);
-})
-=======
-
-
-
-
-
-
-
-
-
-
-
 
 app.listen(port, () => {
     console.log(`application is listening to the port : ${port}`);
 })
->>>>>>> ac23f63eedd5d786b57615fb48635a9ecfc5f85a
+
