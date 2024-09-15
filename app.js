@@ -9,7 +9,8 @@ const Faculty = require("./models/faculty");
 const Admin = require("./models/admin");
 const Student = require("./models/student");
 const Attendance = require("./models/attendance");
-const dbUrl = 'mongodb+srv://sharmaji:2hMJb8vkjyrltAND@cluster0.viyiq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const ExpressError = require("./ExpressError");
+// const dbUrl = 'mongodb+srv://sharmaji:2hMJb8vkjyrltAND@cluster0.viyiq.mongodb.net/AttendanceManagemant?retryWrites=true&w=majority&appName=Cluster0';
 
 main().then(() => {
     console.log("connection successful!");
@@ -17,10 +18,16 @@ main().then(() => {
     console.log(err);
 })
 async function main() {
-    await mongoose.connect(dbUrl);
+    await mongoose.connect("mongodb://127.0.0.1:27017/satms");
 }
 
-
+function asyncWrap(fn){
+    return function(err, req, res){
+        fn(err, req, res).catch((err) => {
+            next(err);
+        })
+    }
+}
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
@@ -54,84 +61,94 @@ app.get("/alert", (req, res) => {
 // Database Handling
 
 //Add New faculty details -> facultyRegForm.ejs
-app.post("/addNewFaculty", async(req, res) => {
+app.post("/addNewFaculty", asyncWrap(async(req, res) => {
     const data = req.body;
     let insertedData = await Faculty.insertMany({name: data.facultyname, email: data.facultyemail, mobile_no: data.facultymobile, department: data.facultyDepartment, password: data.facultypassword});
     insertedData.save;
     res.redirect("/alert");
-})
+}));
 // Login faculty into his account -> adminLoginForm.ejs
-app.post("/facultyLogin", async(req, res) => {
+app.post("/facultyLogin", asyncWrap(async(req, res) => {
     let dbData = await Faculty.find({$and: [{email: req.body.formEmail}, {password: req.body.formPassword}]});
     if(dbData == ""){
         console.log("some error occured");
     }else{
         res.redirect(`/facultyHome/${dbData[0]._id}`);
     }
-})
+}));
 
 // Login Admin into his account -> adminLoginForm.ejs
-app.post("/AdminLogin", async(req, res) => {
+app.post("/AdminLogin", asyncWrap(async(req, res) => {
     const dbData = await Admin.find({$and: [{email: req.body.formEmail}, {mobile_no: req.body.formMobile}]})
     if(dbData == ""){
-        console.log("some error occured");
+        throw new ExpressError(401, "UnAuthorized Access");
     }else{
-        res.send("This is home page for admin");
+        res.redirect(`/facultyHome/${dbData[0]._id}`);
     }
-})
+}))
 
 // Handling home page
 // faculty Home page
-app.get("/facultyHome/:id", async(req, res) => {
+app.get("/facultyHome/:id", asyncWrap(async(req, res) => {
     let {id} = req.params;
     const facultyData = await Faculty.findById(id);
     res.render("facultyHomePage.ejs", {facultyData});
-})
-app.get("/showAdmins/:id", async(req, res) => {
+}));
+app.get("/showAdmins/:id", asyncWrap(async(req, res) => {
     let {id} = req.params;
     const facultyData = await Faculty.findById(id);
     const allAdmins = await Admin.find({});
     const allFaculties = await Faculty.find({});
     res.render("showAdmin.ejs", {facultyData, allAdmins, allFaculties});
-})
-app.delete("/admins/:sender/:id", async(req, res) => {
+}));
+app.delete("/admins/:sender/:id", asyncWrap(async(req, res) => {
     let {id, sender} = req.params;
     const deletedData = await Admin.findByIdAndDelete(id);
     res.redirect(`/showAdmins/${sender}`);
-})
-app.get("/AdminReg/:id", async(req, res) => {
+}))
+app.get("/AdminReg/:id", asyncWrap(async(req, res) => {
     let {id} = req.params;
     const facultyData = await Faculty.findById(id);
     res.render("adminRegForm.ejs", {facultyData});
-})
+}))
 // Add New admin details -> adminRegForm.ejs
-app.post("/addNewAdmin/:id", async(req, res) => {
+app.post("/addNewAdmin/:id", asyncWrap(async(req, res) => {
     let {id} = req.params;
     const data = req.body;
     const insertedData = await Admin.insertMany({name: data.adminname, email: data.adminemail, mobile_no: data.adminmobile, department: data.adminDepartment, password: data.adminpassword});
     insertedData.save;
     res.render("adminRegAlert.ejs", {id});
-})
-app.get("/NewReg/:id", async(req, res) => {
+}))
+app.get("/NewReg/:id", asyncWrap(async(req, res, next) => {
     let {id} = req.params;
-    const facultyData = await Faculty.findById(id);
-    res.render("NewReg.ejs", {facultyData});
-})
-app.post("/NewReg/:id", async(req, res) => {
+    const checkAccess = await Faculty.findById(id) || Admin.findById(id);
+    if(checkAccess == ""){
+        throw new ExpressError(401, "UnAuthorized Access !");
+    }else{
+        const facultyData = await Faculty.findById(id);
+        res.render("NewReg.ejs", {facultyData});
+    }
+}))
+app.post("/NewReg/:id", asyncWrap(async(req, res, next) => {
     let {id} = req.params;
-    const data = req.body;
-    const insertedData = await Student.insertMany({name: data.studentName, email: data.studentEmail, mobile_no: data.studentMobile, department: data.studentDepartment, regNumber: data.studentReg});
-    const insertInAttendance = await Attendance.insertMany({Developertoken: 'NGP@Admin', regNumber: data.studentReg, studentPresent: 0, workingDays: 0});
-    insertInAttendance.save;
-    insertedData.save;
-    res.render("adminRegAlert.ejs", {id});
-})
-app.get("/makeAttendance/:id", async(req, res) => {
+    const checkAccess = await Faculty.findById(id) || Admin.findById(id);
+    if(checkAccess == ""){
+    throw new ExpressError(401, "UnAuthorized Access !");
+    }else{
+        const data = req.body;
+        const insertedData = await Student.insertMany({name: data.studentName, email: data.studentEmail, mobile_no: data.studentMobile, department: data.studentDepartment, regNumber: data.studentReg});
+        const insertInAttendance = await Attendance.insertMany({Developertoken: 'NGP@Admin', regNumber: data.studentReg, studentPresent: 0, workingDays: 0});
+        insertInAttendance.save;
+        insertedData.save;
+        res.render("adminRegAlert.ejs", {id});
+    }
+}))
+app.get("/makeAttendance/:id", asyncWrap(async(req, res) => {
     let {id} = req.params;
     const facultyData = await Faculty.findById(id) || Admin.findById(id);
     res.render("makeAttendance.ejs", {facultyData});
-})
-app.get("/tickoutAttendance/:id/", async(req, res) => {
+}));
+app.get("/tickoutAttendance/:id/", asyncWrap(async(req, res) => {
     let {id} = req.params;
     try{
         const facultyData = await Faculty.findById(id) || Admin.findById(id);
@@ -143,8 +160,8 @@ app.get("/tickoutAttendance/:id/", async(req, res) => {
     }catch(err){
         res.status(400).send("No Students are registered !")
     }
-})
-app.post("/submitAttendance/:id", async(req, res) => {
+}));
+app.post("/submitAttendance/:id", asyncWrap(async(req, res) => {
     let {id} = req.params;
     const Students = await Attendance.find({});
     for(let student of Students){
@@ -156,19 +173,23 @@ app.post("/submitAttendance/:id", async(req, res) => {
         }
     }
     res.redirect(`/facultyHome/${id}`);
+}));
+
+
+
+
+
+
+
+// Error Handling starts from here
+app.all("*", asyncWrap((req, res, next) => {
+    throw new ExpressError(404, "Page Not Found !");
+}))
+
+app.use((err, req, res, next) => {
+    let {status = 500, message = "Something went wrong"} = err;
+    res.status(status).render("error.ejs", {status, message});
 })
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 app.listen(PORT, () => {

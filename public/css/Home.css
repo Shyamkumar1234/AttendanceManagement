@@ -188,7 +188,7 @@ header a{
 /* footer section */
 
 .footer{
-    position: absolute;
+    position: fixed;
     width: 100vw;
     height: 4.5rem;
     bottom: 0;
@@ -319,4 +319,19 @@ table{
 }
 #submit-prsesnt:hover{
     background-color: #209;
+}
+
+
+/* error handling design */
+.error-container{
+    width: 100vw;
+    height: 100vh;
+    background-color: #d9e9f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.error-container h1{
+    font-size: 5rem;
 }
