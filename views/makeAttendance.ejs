@@ -1,0 +1,20 @@
+<%- include("includes/homeHead.ejs") %>
+<body>
+    <%- include("includes/navbar.ejs") %>
+
+    <div class="home-page-container start-logo">
+        <img src="https://www.spectra-vision.com/wp-content/uploads/2019/11/Best-attendance-management-solution.png" alt="">
+
+        <form action="/tickoutAttendance/<%= facultyData._id %>">
+            <button>Start</button>
+        </form>
+    </div>
+
+
+    
+    
+
+    <%- include("includes/footer.ejs") %>
+    <script src="/js/index.js"></script>
+</body>
+</html>

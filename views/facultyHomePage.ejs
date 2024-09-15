@@ -1,0 +1,41 @@
+<%- include("includes/homeHead.ejs") %>
+<body>
+    <%- include("includes/navbar.ejs") %>
+
+    <div class="home-page-container">
+        <div>
+            <div class="slide-image-container">
+            <img src="https://www.wcitv.com/wp-content/uploads/2019/04/iStock-987365514.jpg" id="homeImage">
+            </div>
+
+            <div class="welcom-user">
+                <h3>👨‍🎓 Hi, <%= facultyData.name %></h3>
+            </div>
+        </div>
+        <div class="secon-container">
+            <div class="show-admins">
+                <form method="get" action="/showAdmins/<%= facultyData._id %>">
+                    <button>Show Admins</button>
+                </form>
+                <form method="get" action="/AdminReg/<%= facultyData._id %>">
+                    <button>Make Admin</button>
+                </form>
+            </div>
+            <div class="links">
+                <form method="get" action="/NewReg/<%= facultyData._id %>">
+                    <button>New registration</button>
+                </form>
+                <a href="/makeAttendance/<%= facultyData._id %>"><button>Make Attendance</button></a>
+            </div>
+        </div>
+
+    </div>
+
+
+    
+    
+
+    <%- include("includes/footer.ejs") %>
+    <script src="/js/index.js"></script>
+</body>
+</html>

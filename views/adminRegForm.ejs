@@ -1,0 +1,40 @@
+<%- include("includes/homeHead.ejs") %>
+<body>
+    <%- include("includes/navbar.ejs") %>
+
+    <div class="home-page-container">
+        <form method="post" action="/addNewAdmin/<%= facultyData._id %>" novalidate class="row col-md-8 col-lg-16 needs-validation mt-5" autocomplete="off" spellcheck="false">
+            <div class="mb-2">
+                <select name="adminDepartment" id="branch" required class="form-control">
+                    <option value="null">Select Department</option>
+                    <option value="cse">Computer Science</option>
+                    <option value="me">Mechanical Engg.</option>
+                    <option value="el">Electrical Engg</option>
+                    <option value="civil">Civil Engg.</option>
+                    <option value="ec">Electronics Engg.</option>
+                </select>
+            </div>
+            <div class=" mb-2">
+                <input type="text" placeholder="enter your name " name="adminname" required class="form-control" >
+                <div class="invalid-feedback">Please enter admin name.</div>
+            </div>
+            <div class=" mb-2">
+                <input type="email" placeholder="enter email" name="adminemail" required class="form-control" >
+                <div class="invalid-feedback">Please enter admin email.</div>
+            </div>
+            <div class=" mb-2">
+                <input type="text" placeholder="enter mobile number" name="adminmobile" required minlength="10" maxlength="10" class="form-control" >
+                <div class="invalid-feedback">Please enter admin mobile number.</div>
+            </div>        
+            <button class="btn btn-dark col-4 offset-4">Register</button>
+        </form>  
+    </div>
+
+
+
+    <%- include("includes/footer.ejs") %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="/js/validation.js"></script>
+    <script src="/js/index.js"></script>
+</body>
+</html>

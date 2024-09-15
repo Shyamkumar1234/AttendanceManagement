@@ -1,0 +1,40 @@
+<%- include("includes/homeHead.ejs") %>
+<body>
+    <%- include("includes/navbar.ejs") %>
+
+    <div class="home-page-container">
+
+        <table border="1" class="admins-table">
+           <tr> <th>Faculty Name </th></tr>
+            <% for(let faculty of allFaculties){ %>
+                <tr>
+                    <td>
+                       <%= faculty.name %>
+                    </td>
+                </tr>
+                <% } %>
+        </table>
+        <br>
+        <table border="1" class="admins-table">
+             <tr><th>Admin Name </th></th><th>Delete</th></tr>
+             <% for(let admin of allAdmins){ %>
+                    <tr>
+                            <td>
+                               <%= admin.name %>
+                            </td>
+                            <td class="del">
+                               <form method="post" action="/admins/<%= facultyData._id  %>/<%= admin._id %>?_method=DELETE"><button>Delete</button></form>
+                           </td>
+                    </tr>
+            <% } %>
+         </table>
+
+        
+    </div>
+
+
+
+    <%- include("includes/footer.ejs") %>
+    <script src="/js/index.js"></script>
+</body>
+</html>

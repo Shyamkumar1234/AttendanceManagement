@@ -1,0 +1,54 @@
+<%- include("includes/homeHead.ejs") %>
+<body>
+    <header>
+        <i class="fa-solid fa-bars" id="menuBar"></i>
+        <h4 style="margin-top: 7px; font-weight: 550; font-size: 1.5rem; margin-right: 5rem;"><%= facultyData.department %></h4>
+    </header>
+    <div class="side-navbar" id="sideBar">
+        <div class="cross" id="cross">X</div>
+        <div class="user-profile">
+            <img src="https://pluspng.com/img-png/png-user-icon-icons-logos-emojis-users-2400.png" alt="user">
+            <p><%= facultyData.email %></p>
+        </div>
+        <ul>
+            <li><a href="/facultyHome/<%= facultyData._id %>"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="#"><i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
+            <li><a href="#"><i class="fa-solid fa-book-open"></i> Courses</a></li>
+            <li><a href=""><i class="fa-solid fa-calendar-days"></i> Attendance</a></li>
+            <li><a href="/"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</a></li>
+            <li><a href="#"><i class="fa-solid fa-circle-info"></i> About</a></li>
+        </ul>
+    </div>
+    <div id="hide_bg"></div>
+
+    <!-- please naver try to edit above code , Do if very required -->
+    <div class="home-page-container">
+        <div class="attendance-sheet">
+            <form method="post" action="/submitAttendance/<%= facultyData._id %>" class="admins-table">
+                <table border="1" >
+                    <tr>
+                        <th style="padding-left: 1.5rem;">Registration No.</th>
+                        <th style="text-align: right; padding-right: 3rem;">Mark</th>
+                    </tr>
+                    <% for(student of studentData){ %>
+                        <tr>
+                            <td style="padding-left: 1rem;"><%= student.regNumber %></td>
+                            <td style="text-align: right; padding-right: 4rem;">
+                                <input type="radio" name="name<%= student.regNumber %>" style="width: 1.5rem; height: 1.5rem;">
+                            </td>
+                        </tr>
+                    <% } %> 
+                </table>
+                <button id="submit-prsesnt">Submit</button>
+            </form>
+        </div>
+    </div>
+
+
+    
+    
+
+    <%- include("includes/footer.ejs") %>
+    <script src="/js/index.js"></script>
+</body>
+</html>

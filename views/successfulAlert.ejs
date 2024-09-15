@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale = 1.0, user-scalable = no" >
+    <title>NGP Patna-13</title>
+</head>
+<style>
+    body{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background-color: #080843;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .tick-container{
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        place-items: center;
+        place-content: center;
+    }
+    .tick-container h2{
+        color: #fff;
+    }
+</style>
+<body>
+    <div class="tick-container">
+        <dotlottie-player src="https://lottie.host/90ef987d-3ad0-439e-a07b-321cb9f7330e/K8oIV7O2bM.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+        <h2 id="successAlert" style="visibility: hidden;">Registration Successful</h2>
+    </div>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+    <script>
+        let successAlert = document.getElementById("successAlert");
+        setTimeout(()=>{
+            successAlert.style.visibility = "visible";
+        }, 1500);
+        setTimeout(()=> {
+            location.href = "/facultyLogin";
+        }, 2500);
+    </script>
+</body>
+</html>

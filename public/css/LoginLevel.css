@@ -12,18 +12,26 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
 }
+.login-college-logo{
+    width: 90vw;
+    height: 45vh;
+    display: grid;
+    place-items: center;
+}
+.login-college-logo img{
+    width: 100%;
+    height: 100%;
+}
+
 .form-container{
     width: 80vw;
-    height: 15rem;
-    /* border: 1px solid red; */
-    position: absolute;
-    bottom: 6rem;
-    margin: auto;
+    height: 45vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 .form-container button{
     width: 70vw;
@@ -37,24 +45,14 @@
 .form-container h2{
     color: #f6f6f6;
     letter-spacing: 1px;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 .form-container a{
     color: #1d037a;
     font-weight: 700;
 }
-.login-college-logo{
-    width: 90vw;
-    height: 25rem;
-    position: absolute;
-    top: 2rem;
-    display: grid;
-    place-items: center;
-}
-.login-college-logo img{
-    width: 100%;
-    height: 100%;
-}
+
 
 @media(min-width: 650px){
     .login-college-logo{
@@ -67,6 +65,7 @@
     }
 }
 
+
 /* LoginLevel completed above */
 
 
@@ -77,12 +76,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-end;
 }
 .faculty-form-container{
     width: 80vw;
-    height: 15rem;
-    position: absolute;
-    bottom: 6rem;
+    height: 45vh;
     padding-left: 1.5rem;
 }
 .faculty-form-container input{
