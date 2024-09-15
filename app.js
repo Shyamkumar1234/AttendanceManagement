@@ -9,7 +9,7 @@ const Faculty = require("./models/faculty");
 const Admin = require("./models/admin");
 const Student = require("./models/student");
 const Attendance = require("./models/attendance");
-const dbUrl = 'mongodb+srv://sharmaji:2hMJb8vkjyrltAND@cluster0.viyiq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const dbUrl = 'mongodb+srv://sharmaji:2hMJb8vkjyrltAND@cluster0.viyiq.mongodb.net/AttendanceManagemant?retryWrites=true&w=majority&appName=Cluster0';
 
 main().then(() => {
     console.log("connection successful!");
