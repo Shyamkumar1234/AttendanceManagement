@@ -11,7 +11,7 @@ const Student = require("./models/student");
 const Attendance = require("./models/attendance");
 const ExpressError = require("./ExpressError");
 const dbUrl = 'mongodb+srv://sharmaji:2hMJb8vkjyrltAND@cluster0.viyiq.mongodb.net/AttendanceManagemant?retryWrites=true&w=majority&appName=Cluster0';
-
+>>>>>>> ac23f63eedd5d786b57615fb48635a9ecfc5f85a
 
 main().then(() => {
     console.log("connection successful!");
@@ -182,22 +182,34 @@ app.post("/submitAttendance/:id", asyncWrap(async(req, res, next) => {
 
 
 
-
-
-
-
 // Error Handling starts from here
 app.all("*", asyncWrap((req, res, next) => {
     throw new ExpressError(404, "Page Not Found !");
 }))
-
 app.use((err, req, res, next) => {
     let {status = 500, message = "Something went wrong"} = err;
     res.status(status).render("error.ejs", {status, message});
 })
 
 
+<<<<<<< HEAD
+app.listen(PORT, () => {
+    console.log(`application is listening to the port : ${PORT}`);
+})
+=======
+
+
+
+
+
+
+
+
+
+
+
+
 app.listen(port, () => {
     console.log(`application is listening to the port : ${port}`);
 })
-
+>>>>>>> ac23f63eedd5d786b57615fb48635a9ecfc5f85a
