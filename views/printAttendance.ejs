@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale = 1.0, user-scalable = no">
+    <title>NGP Patna-13</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #d9e9f7;
+        }
+        .printBtn{
+            padding: 1.2rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+ 
+        .sheet table{
+            width: 90vw;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        .about {
+            width: 90vw;
+            display: grid;
+            place-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="printMain-container">
+        <div class="printBtn">
+            <button id="print">Print</button>
+        </div>
+        <div class="sheet">
+            <table border="1">
+                <tr>
+                    <th style="text-align: left; padding-left: 1rem;">Registration No.</th>
+                    <th>Total Present ( % )</th>
+                </tr>
+                <% for(let report of reports){ %>
+                    <tr>
+                        <td style="text-align: left; padding-left: 1rem;"><%= report.regNumber %></td>
+                        <td><%= report.studentPresent * 100 / report.workingDays %></td>
+                    </tr>
+                    <% } %>
+            </table>
+        </div>
+        <br><br>
+        <div class="about">
+            <h1>NGP Patna-13</h1>
+        </div>
+    </div>
+
+    <script>
+      try{
+            document.getElementById("print").addEventListener("click", () => {
+            window.print();
+        })
+      } catch(err){
+        console.log(err);
+      }
+        
+    </script>
+</body>
+</html>

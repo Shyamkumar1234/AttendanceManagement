@@ -18,7 +18,6 @@ const adminSchema = new Schema({
     },
     department: {
         type: String,
-        required: true,
     }
 })
 const Admin = mongoose.model("Admin", adminSchema);

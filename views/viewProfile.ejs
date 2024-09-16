@@ -1,0 +1,70 @@
+<%- include("includes/homeHead.ejs") %>
+<body>
+    <div class="profile-main-container">
+        <h1 style="text-align: center;">Your profile</h1>
+        <form method="post" action="/editProfile/<%= facultyData._id %>?_method=PATCH" novalidate class="row col-10 offset-1 col-md-8 col-lg-16 needs-validation mt-1" spellcheck="false">
+            <div class="mb-2">
+                <label for="adminDepartment" class="form-label">Department :</label>
+                <select name="adminDepartment" id="branch" required class="form-control" spellcheck="false" disabled style="border: 2px solid #fff;">
+                    <option value="null"><%= facultyData.department %></option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Mechanical Engg.">Mechanical Engg.</option>
+                    <option value="Electrical Engg.">Electrical Engg</option>
+                    <option value="Civil Engg.">Civil Engg.</option>
+                    <option value="Electronics Engg.">Electronics Engg.</option>
+                </select>
+            </div>
+            <div class=" mb-2">
+                 <label for="adminName" class="form-label">Name :</label>
+                <input type="text" value="<%= facultyData.name %>" name="adminName" required class="form-control" spellcheck="false">
+                <div class="invalid-feedback">Please enter admin name.</div>
+            </div>
+            <div class=" mb-2">
+                 <label for="adminEmail" class="form-label">Email :</label>
+                <input type="email" value="<%= facultyData.email %>" name="adminEmail" required class="form-control" spellcheck="false">
+                <div class="invalid-feedback">Please enter admin email.</div>
+            </div>
+            <div class=" mb-2">
+                 <label for="adminMobile" class="form-label">Contact :</label>
+                <input type="number" value="<%= facultyData.mobile_no %>" name="adminMobile" required minlength="10" maxlength="10" class="form-control" spellcheck="false">
+                <div class="invalid-feedback">Please enter mobile number.</div>
+            </div>
+            <div class=" mb-2">
+                 <label for="adminPassword" class="form-label">Password :</label>
+                <input type="text" value="<%= facultyData.password %>" name="adminPassword" required class="form-control">
+                <div class="invalid-feedback">Please create a password.</div>
+            </div>
+            
+               <div class="updateBtns">
+                <button class="changeBtn" id="change">change</button>
+                <button class="changeBtn">save</button>
+               </div>
+            </div>
+        </form>  
+    </div>
+    <h1><%= facultyData.name %></h1>
+
+    <script>
+        try{
+            document.querySelectorAll("input").forEach((el) => {
+                el.disabled = true;
+                el.style.border = "2px solid #fff"
+            })
+        } catch(err){
+            console.log(err);
+        }
+        try{
+            document.getElementById("change").addEventListener("click", (event)=> {
+                event.preventDefault();
+                document.querySelectorAll("input").forEach((el) => {
+                el.disabled = false;
+                el.style.border = "none"
+                })
+            })
+        } catch(err){
+            console.log(err);
+        }
+    </script>
+
+</body>
+</html>

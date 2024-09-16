@@ -11,7 +11,8 @@ const Student = require("./models/student");
 const Attendance = require("./models/attendance");
 const ExpressError = require("./ExpressError");
 const dbUrl = 'mongodb+srv://sharmaji:2hMJb8vkjyrltAND@cluster0.viyiq.mongodb.net/AttendanceManagemant?retryWrites=true&w=majority&appName=Cluster0';
->>>>>>> ac23f63eedd5d786b57615fb48635a9ecfc5f85a
+
+
 
 main().then(() => {
     console.log("connection successful!");
@@ -19,7 +20,7 @@ main().then(() => {
     console.log(err);
 })
 async function main() {
-    await mongoose.connect(dbUrl);
+    await mongoose.connect("mongodb://127.0.0.1:27017/satms");
 }
 
 function asyncWrap(fn){
@@ -91,7 +92,6 @@ app.post("/AdminLogin", asyncWrap(async(req, res, next) => {
 app.get("/facultyHome/:id", asyncWrap(async(req, res, next) => {
     let {id} = req.params;
     const facultyData = await Faculty.findById(id) || await Admin.findById(id);
-    console.log(facultyData)
     if(facultyData == ""){
         throw new ExpressError(401, "UnAuthorized Access !");
     }
@@ -180,36 +180,52 @@ app.post("/submitAttendance/:id", asyncWrap(async(req, res, next) => {
     res.redirect(`/facultyHome/${id}`);
 }));
 
+// print Attendance
+app.get("/printAttendance", asyncWrap(async(req, res) => {
+    const reports = await Attendance.find({});
+    res.render("printAttendance.ejs", {reports});
+}))
+app.get("/viewProfile/:id", asyncWrap(async(req, res) => {
+    let {id} = req.params;
+    const facultyData = await Faculty.findById(id) || await Admin.findById(id);
+    res.render("viewProfile.ejs", {facultyData});
+}));
+app.patch("/editProfile/:id", asyncWrap(async(req, res) => {
+    let {id} = req.params;
+    let data = req.body;
+    let isFaculty = await Faculty.findById(id);
+        if(isFaculty != ""){
+            const fchanged = await Faculty.findByIdAndUpdate(id, {name: data.adminName, email: data.adminEmail,  mobile_no: data.adminMobile, department: data.adminDepartment, password: data.adminPassword});
+            fchanged.save;
+            res.redirect(`/facultyHome/${id}`);
+        }else{
+            let isAdmin = await Admin.findById(id)
+            if(isAdmin != ""){
+                let achanged = await Admin.findByIdAndUpdate(id, {name: data.adminName, email: data.adminEmail,  mobile_no: data.adminMobile, department: data.adminDepartment});
+                achanged.save;
+                res.redirect(`/facultyHome/${id}`);
+            }else{
+                throw new ExpressError(401, "UnAuthorized user !");
+            }
+        } 
+}))
+
+
+
 
 
 // Error Handling starts from here
 app.all("*", asyncWrap((req, res, next) => {
     throw new ExpressError(404, "Page Not Found !");
 }))
+
 app.use((err, req, res, next) => {
     let {status = 500, message = "Something went wrong"} = err;
     res.status(status).render("error.ejs", {status, message});
 })
 
 
-<<<<<<< HEAD
-app.listen(PORT, () => {
-    console.log(`application is listening to the port : ${PORT}`);
-})
-=======
-
-
-
-
-
-
-
-
-
-
-
-
 app.listen(port, () => {
     console.log(`application is listening to the port : ${port}`);
 })
->>>>>>> ac23f63eedd5d786b57615fb48635a9ecfc5f85a
+
