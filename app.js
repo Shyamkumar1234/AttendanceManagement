@@ -12,8 +12,6 @@ const Attendance = require("./models/attendance");
 const ExpressError = require("./ExpressError");
 const dbUrl = 'mongodb+srv://sharmaji:2hMJb8vkjyrltAND@cluster0.viyiq.mongodb.net/AttendanceManagemant?retryWrites=true&w=majority&appName=Cluster0';
 
-
-
 main().then(() => {
     console.log("connection successful!");
 }).catch((err) =>{
@@ -223,6 +221,8 @@ app.use((err, req, res, next) => {
     let {status = 500, message = "Something went wrong"} = err;
     res.status(status).render("error.ejs", {status, message});
 })
+
+
 
 
 app.listen(port, () => {
