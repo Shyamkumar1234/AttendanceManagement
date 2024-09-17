@@ -9,7 +9,6 @@ const studentSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
     },
     mobile_no: {
         type: Number,
