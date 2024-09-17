@@ -181,7 +181,9 @@ app.post("/submitAttendance/:id", asyncWrap(async(req, res, next) => {
 // print Attendance
 app.get("/printAttendance", asyncWrap(async(req, res) => {
     const reports = await Attendance.find({});
-    res.render("printAttendance.ejs", {reports});
+    const totalPresent = report.studentPresent * 100 / report.workingDays;
+    const totalPresented = Math.round(totalPresent);
+    res.render("printAttendance.ejs", {reports, totalPresented});
 }))
 app.get("/viewProfile/:id", asyncWrap(async(req, res) => {
     let {id} = req.params;
