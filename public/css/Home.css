@@ -355,7 +355,6 @@ table{
 .profile-main-container{
     width: 100vw;
     height: 100vh;
-    border: 1px solid red;
     background-color: #d9e9f7;
     padding-top: 1rem;
 }
